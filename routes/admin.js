@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const Product = require('../models/Product'); // Correctly import the Product model
+const Product = require('../models/Product'); 
 
 
 
-// CREATE
 router.post('/add', async function(req, res) {
     try {
         const { title, image, description, price } = req.body;
@@ -39,18 +38,9 @@ router.post('/add', async function(req, res) {
 
 
 
-/* GET route to fetch all products */
 router.get('/', async (req, res) => {
-    try {
-        // const products = await Product.find(); // Fetch all products from MongoDB
-        const products = await Product.find().sort({ createdAt: -1 }); // Fetch products sorted in descending order
-        res.render('admin.hbs', {products}); // Render the admin page
-       // res.json(products); // Send the data to the frontend as JSON
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).json({ message: 'Server error' }); // Handle any errors
-    }
+
 });
 
 
-module.exports = router; // Export the router
+module.exports = router; 

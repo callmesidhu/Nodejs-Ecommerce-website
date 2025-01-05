@@ -7,18 +7,14 @@ var logger = require('morgan');
 
 var homeRouter = require('./routes/home');
 var adminRouter = require('./routes/admin');
-var uploadRo
-var connectDB = require('./config/connection'); // Import the connectDB function
+var connectDB = require('./config/connection'); 
 
-// Connect to MongoDB
-connectDB(); // Call the function to connect to the database
 
 
 var hbs = require('hbs'); 
 
 
 var app = express();
-var fileUpdload=require('express-fileupload')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpdload())
+
 
 app.use('/', homeRouter);
 app.use('/admin', adminRouter);
