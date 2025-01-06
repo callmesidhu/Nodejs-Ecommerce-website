@@ -11,8 +11,11 @@ const isAdmin = (req, res, next) => {
 };
 
 router.get('/', isAdmin, async (req, res) => {
-  res.render('admin');
+        const products = await Product.find().sort({ createdAt: -1 }); // -1 for descending order
+        res.render('admin', { products });
 });
+
+
 
 // POST route to add a product
 router.post('/add', isAdmin, async (req, res) => {
@@ -33,6 +36,6 @@ router.post('/add', isAdmin, async (req, res) => {
           console.error('Error adding product:', error);
           res.redirect('/admin')
         }
-      });
+});
 
 module.exports = router;
