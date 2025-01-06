@@ -8,11 +8,8 @@ router.post('/add', async function(req, res) {
 });
 
 
-
-
-
 router.get('/', async (req, res) => {
-
+        res.render('admin');
 });
 
 
