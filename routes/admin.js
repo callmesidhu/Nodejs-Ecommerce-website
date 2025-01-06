@@ -73,7 +73,13 @@ router.post('/add', isAdmin, async (req, res) => {
 router.post('/delete/:id', isAdmin, async (req, res) => {
         try {
           const { id } = req.params; // Get the product ID from the URL
-      
+
+          const imagePath = path.resolve(__dirname, '../public/storage', `${id}.jpg`);
+         fs.unlink(imagePath, (err) => {
+         if (err) console.error(`Error deleting image: ${err.message}`);
+         });
+
+
           // Find and delete the product by ID
           const deletedProduct = await Product.findByIdAndDelete(id);
       
