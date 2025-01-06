@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var connectDB = require('./config/dbconnection');
+var fileUpload = require('express-fileupload');
 
 var homeRouter = require('./routes/home');
 var adminRouter = require('./routes/admin');
@@ -34,7 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // To parse JSON bodies
 app.use(express.json());
-
+app.use(fileUpload());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

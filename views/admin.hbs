@@ -43,7 +43,7 @@
             <tr>
                 <td>
                     <div class="cart-info">
-                        <img src={{this.image}}>
+                        <img  style="width: 50px;height: 50px;" src="{{this.image}}" alt="">
                         <div>
                             <h3>{{this.title}}</h3>
                             <small>{{this.description}}</small>
@@ -72,7 +72,7 @@
         <!-- Add new product form -->
         <div class="add-product-form">
 
-            <form action="admin/add" method="post" style="display: flex; flex-direction: column; gap: 10px;">
+            <form action="admin/add" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 10px;">
                 <div>
                     <label for="title">Product Title:</label>
                     <input type="text" id="title" name="title" required>

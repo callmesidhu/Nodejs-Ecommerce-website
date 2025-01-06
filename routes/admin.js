@@ -9,11 +9,15 @@ const isAdmin = (req, res, next) => {
   }
   res.status(403).send('Access denied. Admin only.'); 
 };
+
 router.get('/', isAdmin, async (req, res) => {
   res.render('admin');
 });
 
-
+router.post('/add', isAdmin, async (req, res) => {
+        console.log(req.body);
+        console.log(req.files.image);
+});
 
 
 module.exports = router;
