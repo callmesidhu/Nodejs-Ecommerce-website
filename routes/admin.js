@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const Product = require('../models/Product');
+const Product = require('../models/Product'); // Ensure this points to your Product model
 
-const admin = 'true';
+const admin = 'true'; // You should replace this with actual authentication logic
 const isAdmin = (req, res, next) => {
   if (admin === 'true') { 
     return next(); 
@@ -14,10 +14,25 @@ router.get('/', isAdmin, async (req, res) => {
   res.render('admin');
 });
 
+// POST route to add a product
 router.post('/add', isAdmin, async (req, res) => {
-        console.log(req.body);
-        console.log(req.files.image);
-});
-
+        try {
+          const { title, description, price } = req.body;
+      
+          const newProduct = new Product({
+            title,
+            description,
+            price,
+          });
+      
+          const savedProduct = await newProduct.save();
+      
+          console.log('Product added successfully:', savedProduct);
+          res.redirect('/admin')
+        } catch (error) {
+          console.error('Error adding product:', error);
+          res.redirect('/admin')
+        }
+      });
 
 module.exports = router;

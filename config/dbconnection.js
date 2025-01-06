@@ -1,12 +1,11 @@
-// db.js
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    // Use your local MongoDB URI here
+   
     const uri = 'mongodb://localhost:27017/redstore_db'; 
     
-    await mongoose.connect(uri);  // No need for useNewUrlParser and useUnifiedTopology
+    await mongoose.connect(uri);  
     
     console.log('MongoDB connected');
   } catch (error) {
