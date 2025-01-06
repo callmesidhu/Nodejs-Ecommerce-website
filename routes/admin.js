@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const path = require('path');
+const fs = require('fs');
 const Product = require('../models/Product'); // Ensure this points to your Product model
 
 const admin = 'true'; // You should replace this with actual authentication logic
@@ -22,21 +24,49 @@ router.post('/add', isAdmin, async (req, res) => {
         try {
           const { title, description, price } = req.body;
       
+          // Save product details to the database
           const newProduct = new Product({
             title,
             description,
             price,
           });
-      
           const savedProduct = await newProduct.save();
       
           console.log('Product added successfully:', savedProduct);
-          res.redirect('/admin')
+      
+          // Check if an image is uploaded
+          if (req.files && req.files.image) {
+            const image = req.files.image;
+      
+            // Ensure storage directory exists
+            const storagePath = path.resolve(__dirname, '../public/storage');
+            if (!fs.existsSync(storagePath)) {
+              fs.mkdirSync(storagePath, { recursive: true });
+            }
+      
+            // Define the file path with the product ID as the file name
+            const productId = savedProduct._id.toString();
+            const filePath = path.join(storagePath, `${productId}${path.extname(image.name)}`);
+      
+            // Move the uploaded image to the storage folder
+            image.mv(filePath, (error) => {
+              if (error) {
+                console.error('Error saving image:', error);
+                return res.status(500).json({ message: 'Failed to save image' });
+              }
+      
+              console.log('Image saved successfully:', filePath);
+            });
+          } else {
+            console.warn('No image uploaded for this product.');
+          }
+      
+          res.redirect('/admin');
         } catch (error) {
           console.error('Error adding product:', error);
-          res.redirect('/admin')
+          res.redirect('/admin');
         }
-});
+      });
 
 // POST route to delete a product
 router.post('/delete/:id', isAdmin, async (req, res) => {
