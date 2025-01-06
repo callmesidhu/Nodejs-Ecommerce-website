@@ -4,6 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var connectDB = require('./config/dbconnection');
 
 var homeRouter = require('./routes/home');
 var adminRouter = require('./routes/admin');
@@ -11,8 +12,11 @@ var cartRouter = require('./routes/cart');
 var errorRouter = require('./routes/error');
 var productsRouter = require('./routes/products');
 var accountsRouter = require('./routes/accounts');
-var connectDB = require('./config/connection'); 
+var connectDB = require('./config/dbconnection'); 
 
+
+// Connect to MongoDB
+connectDB();
 
 
 var hbs = require('hbs'); 
