@@ -4,7 +4,11 @@ const path = require('path');
 const fs = require('fs');
 const Product = require('../models/Product'); // Ensure this points to your Product model
 
+
+
 const admin = 'true'; // You should replace this with actual authentication logic
+
+
 const isAdmin = (req, res, next) => {
   if (admin === 'true') { 
     return next(); 
@@ -14,7 +18,6 @@ const isAdmin = (req, res, next) => {
 
 router.get('/', isAdmin, async (req, res) => {
         const products = await Product.find().sort({ createdAt: -1 }); // -1 for descending order
-        
         res.render('admin', { products });
 });
 

@@ -70,10 +70,10 @@
         <div class="row">
             {{#each products}}
             <div class="col-4">
-                <a href="/productDetails"><img src="images/product-1.jpg"></a>
+                <a href="/productDetails"><img src="/storage/{{this._id}}.jpg"></a>
                 <h4>{{this.name}}</h4>
-                <h5>best product ever</h5>
-                <p>$50.00</p>
+                <h5>{{this.description}}</h5>
+                <p>{{this.price}}</p>
             </div>
             {{/each}}
         </div>
@@ -91,7 +91,7 @@
                     <h1>Smart Band 4</h1>
                     <small>The Mi Smart Band 4 fearures a 39.9%larger (than Mi Band 3) AMOLED color full-touch display
                         with adjustable brightness, so everything is clear as can be.<br></small>
-                    <a href="products.html" class="btn">Buy Now &#8594;</a>
+                    <a href="productsDetails.html" class="btn">Buy Now &#8594;</a>
                 </div>
             </div>
         </div>
