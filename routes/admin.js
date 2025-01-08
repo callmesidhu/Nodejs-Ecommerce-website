@@ -4,8 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const Product = require('../models/Product'); // Ensure this points to your Product model
 
-
-
 const admin = 'true'; // You should replace this with actual authentication logic
 
 
