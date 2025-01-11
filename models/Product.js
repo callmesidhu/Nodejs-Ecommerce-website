@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Define the Product schema
 const productSchema = new mongoose.Schema(
   {
     title: {
@@ -26,7 +25,7 @@ const productSchema = new mongoose.Schema(
   { timestamps: true } // Adds createdAt and updatedAt fields automatically
 );
 
-// Create and export the Product model
+
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;

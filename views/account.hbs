@@ -45,6 +45,7 @@
                             <span onclick="register()">Register</span>
                             <hr id="Indicator">
                         </div>
+                        
                         <!-- Login Form -->
                         <form action="/account/login" method="post" id="LoginForm">
                             <input type="text" name="username" id="loginUsername" placeholder="Username" required>
@@ -60,7 +61,14 @@
                             <button type="submit" class="btn">Register</button>
                         </form>
 
+
+                        <!-- warning -->
+                        {{#if message}}
+  <p id="warning">{{message}}</p>
+{{/if}}
+
                     </div>
+                    
                 </div>
             </div>
         </div>

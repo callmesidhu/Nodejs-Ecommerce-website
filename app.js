@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var connectDB = require('./config/dbconnection');
 var fileUpload = require('express-fileupload');
-const cors = require('cors');
+var cors = require('cors');
+
 
 // Connect to MongoDB
 connectDB();
@@ -33,6 +34,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+
 
 // Routes
 app.use('/', homeRouter);

@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const connectDB = async () => {
   try {
    
-    const uri = 'mongodb://localhost:27017/redstore_db'; 
+    const uri = process.env.MONGO_URI; 
     
     await mongoose.connect(uri);  
     
