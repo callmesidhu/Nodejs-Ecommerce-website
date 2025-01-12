@@ -507,13 +507,15 @@ form a{
 }
 
 .login-name{
-    margin-left: 20px;
+    margin-left: 0px;
 }
 
 
 .dropbtn {
-    background-color: #3498db00;
-    color: white;
+    background-color: #ffffff7d;
+    margin-left: 10px;
+    border-radius: 30px;
+    color: rgb(0, 0, 0);
     padding: 16px;
     font-size: 16px;
     border: none;
@@ -521,7 +523,8 @@ form a{
   }
   
   .dropbtn:hover, .dropbtn:focus {
-    background-color: #ff0000;
+    background-color: #b2b2b279;
+    color: #ff0000;
   }
   
   .dropdown {
