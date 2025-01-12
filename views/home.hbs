@@ -26,13 +26,25 @@
                         <li><a href="/products">Products</a></li>
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
-                        <li>    {{#if userDetails}}
+                        <li>    
+            {{#if userDetails}}
 <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn"><h3 class="login-name">{{userDetails.username}}</h3></button>
+  <button onclick="myFunction()" class="dropbtn">
+    <h3 class="login-name">
+        {{userDetails.username}}
+    </h3>
+   </button>
   <div id="myDropdown" class="dropdown-content">
     <a href="/account/logout">Logout</a>
   </div>
 </div>
+    {{else}}
+    <a href="/account">
+    <button class="dropbtn">
+    <h3 class="login-name">
+        Login
+    </h3>
+   </button></a>
     {{/if}}  </li>
                     </ul>
                 </nav>

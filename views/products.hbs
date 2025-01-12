@@ -25,12 +25,23 @@
                         <li><a href="">Contact</a></li>
                         <li>    {{#if userDetails}}
 <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn"><h3 class="login-name">{{userDetails.username}}</h3></button>
+  <button onclick="myFunction()" class="dropbtn">
+    <h3 class="login-name">
+        {{userDetails.username}}
+    </h3>
+   </button>
   <div id="myDropdown" class="dropdown-content">
-    <a href="">Logout</a>
+    <a href="/account/logout">Logout</a>
   </div>
 </div>
-    {{/if}}  </li>
+    {{else}}
+    <a href="/account">
+    <button class="dropbtn">
+    <h3 class="login-name">
+        Login
+    </h3>
+   </button></a>
+    {{/if}} </li>
                     </ul>
                 </nav>
             <a href="/cart"><img src="images/cart.png" width="30px" height="30px"></a>

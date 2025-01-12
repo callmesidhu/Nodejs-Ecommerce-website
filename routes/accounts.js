@@ -52,7 +52,7 @@ router.post('/login', async (req, res) => {
             if (!isMatch) {
                 console.log('Invalid credentials');
             }else{
-                req.session.userlogin=true;
+                
                 req.session.user = { id: user._id, username: user.username, email: user.email };
                 res.redirect('/');
             }
@@ -66,6 +66,7 @@ router.post('/login', async (req, res) => {
 
 // Logout route
 router.get('/logout',(req,res)=>{
+
     req.session.destroy();
     res.redirect('/');
 })
