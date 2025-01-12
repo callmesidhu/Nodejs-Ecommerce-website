@@ -4,11 +4,11 @@ const path = require('path');
 const fs = require('fs');
 const Product = require('../models/Product'); // Ensure this points to your Product model
 
-const admin = 'true'; // You should replace this with actual authentication logic
+const admin = true; // You should replace this with actual authentication logic
 
 
 const isAdmin = (req, res, next) => {
-  if (admin === 'true') { 
+  if (admin) { 
     return next(); 
   }
   res.status(403).send('Access denied. Admin only.'); 

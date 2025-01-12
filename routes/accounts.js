@@ -6,7 +6,11 @@ const { response } = require('../app');
 
 // Account page
 router.get('/', function (req, res, next) {
-    res.render('account'); // Pass a default value for messages
+    if(req.session.userlogin){
+        res.redirect('/')
+    }else{
+    res.render('account');
+    }
 });
 
 // Register route
@@ -52,7 +56,7 @@ router.post('/login', async (req, res) => {
             if (!isMatch) {
                 console.log('Invalid credentials');
             }else{
-                
+                req.session.userlogin=true;
                 req.session.user = { id: user._id, username: user.username, email: user.email };
                 res.redirect('/');
             }
