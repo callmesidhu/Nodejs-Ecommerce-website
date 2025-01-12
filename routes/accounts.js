@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt'); 
 const User = require('../models/User');
+const { response } = require('../app');
 
 // Account page
 router.get('/', function (req, res, next) {
@@ -15,8 +16,8 @@ router.post('/register', async (req, res) => {
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.render('account', { message: 'Email is already registered.' });
-        }
+            console.log('User already exists');
+        }else{
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -28,10 +29,12 @@ router.post('/register', async (req, res) => {
         });
 
         await newUser.save();
-        res.render('account', { message: 'Registration successful! Please log in.' });
+        console.log('Registration successful! Please log in');
+        res.redirect('/account');
+    }
     } catch (error) {
         console.error(error);
-        res.render('account', { message: 'Server error. Please try again.' });
+        console.log('Registration error!');
     }
 });
 
@@ -42,19 +45,22 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.render('account', { message: 'No user found with that email.' });
+            console.log('No user found');
+        }else{
+            const isMatch = await bcrypt.compare(password, user.password);
+
+            if (!isMatch) {
+                console.log('Invalid credentials');
+            }else{
+                req.session.userlogin=true;
+                req.session.user = { id: user._id, username: user.username, email: user.email };
+                res.redirect('/');
+            }
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.render('account', { message: 'Incorrect password.' });
-        }
-
-        // If login is successful, redirect or render a success message
-        res.redirect('/cart'); // Redirect to cart or dashboard after successful login
     } catch (error) {
         console.error(error);
-        res.render('account', { message: 'Something went wrong. Please try again later.' });
+        console.log('Login error!');
     }
 });
 

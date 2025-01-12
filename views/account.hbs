@@ -41,15 +41,16 @@
                 <div class="col-2">
                     <div class="form-container">
                         <div class="form-btn">
-                            <span onclick="login()">Login</span>
                             <span onclick="register()">Register</span>
+                            <span onclick="login()">Login</span>
                             <hr id="Indicator">
+                            <p id="warning">error message</p>
                         </div>
                         
                         <!-- Login Form -->
                         <form action="/account/login" method="post" id="LoginForm">
-                            <input type="text" name="username" id="loginUsername" placeholder="Username" required>
                             <input type="email" name="email" id="loginEmail" placeholder="Email" required>
+                            <input type="password" name="password" id="registerPassword" placeholder="Password" required>
                             <button type="submit" class="btn">Login</button>
                         </form>
 
@@ -134,13 +135,13 @@
         var RegForm = document.getElementById("RegForm");
         var Indicator = document.getElementById("Indicator");
 
-        function register() {
+        function login() {
             RegForm.style.transform = "translateX(0px)";
             LoginForm.style.transform = "translateX(0px)";
             Indicator.style.transform = "translateX(100px)";
         }
 
-        function login() {
+        function register() {
             RegForm.style.transform = "translateX(300px)";
             LoginForm.style.transform = "translateX(300px)";
             Indicator.style.transform = "translateX(0px)";

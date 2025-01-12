@@ -436,10 +436,10 @@ form .btn{
 form .btn:focus{
     outline: none;
 }
-#LoginForm{
+#RegForm{
     left: -300px;
 }
-#RegForm{
+#LoginForm{
     left: 0;
 }
 form a{
