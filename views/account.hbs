@@ -45,7 +45,9 @@
                             <span onclick="register()">Register</span>
                             <span onclick="login()">Login</span>
                             <hr id="Indicator">
-                            <p id="warning">error message</p>
+                            {{#if warningMessage}}
+                            <p id="warning">{{warningMessage}}</p>
+                            {{/if}}
                         </div>
                         
                         <!-- Login Form -->
