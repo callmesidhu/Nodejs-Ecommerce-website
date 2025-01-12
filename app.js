@@ -34,7 +34,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use(session({ secret:'key', cookie: { maxAge: 60000 }}));
+app.use(session({ secret:'key', cookie: { maxAge: 6000000 }}));
 
 // Routes
 app.use('/', homeRouter);

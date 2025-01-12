@@ -19,6 +19,10 @@
                 <div class="logo">
                     <a href="/"><img src="images/logo.png" alt="logo" width="125px"></a>
                 </div>
+                    {{#if userDetails}}
+<h3 class="login-name">Hey, {{userDetails.username}}</h3>
+
+    {{/if}}   
                 <nav>
                     <ul id="MenuItems">
                         <li><a href="/">Home</a></li>
@@ -28,7 +32,8 @@
                         <li><a href="/account">Account</a></li>
                     </ul>
                 </nav>
-                <a href="/cart"><img src="images/cart.png" width="30px" height="30px"></a>
+                
+             <a href="/cart"><img src="images/cart.png" width="30px" height="30px"></a>
                 <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
             <div class="row">

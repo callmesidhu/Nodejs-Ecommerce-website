@@ -505,3 +505,7 @@ form a{
         display: none;
     }
 }
+
+.login-name{
+    margin-left: 20px;
+}
