@@ -20,8 +20,12 @@
                     <a href="/"><img src="images/logo.png" alt="logo" width="125px"></a>
                 </div>
                     {{#if userDetails}}
-<h3 class="login-name">Hey, {{userDetails.username}}</h3>
-
+<div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn"><h3 class="login-name">Hey, {{userDetails.username}}</h3></button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="">Logout</a>
+  </div>
+</div>
     {{/if}}   
                 <nav>
                     <ul id="MenuItems">
@@ -230,6 +234,23 @@
                 MenuItems.style.maxHeight = "0px"
             }
         }
+        function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
     </script>
 
 </body>
