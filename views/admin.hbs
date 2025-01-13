@@ -54,7 +54,7 @@
                 </td>
                 <td>
                     <form action="/admin/delete/{{this._id}}" method="POST">
-                    <button  type="submit" style="padding: 10px;"><h3>Delete</h3></button>
+                    <button onclick="return confirm('Are you want to delete {{this.title}}?')" type="submit" style="padding: 10px;"><h3>Delete</h3></button>
                     </form>
                     </td>
             </tr>
