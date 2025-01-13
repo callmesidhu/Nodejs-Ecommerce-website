@@ -4,26 +4,36 @@ const Product = require('../models/Product');
 const Cart = require('../models/Cart');
 const User = require('../models/User');
 
-// Route to show the cart
-router.get('/', async function(req, res, next) {
-    let userDetails = req.session.user;
-    let userStatus = req.session.userlogin;
 
-    // Ensure user is logged in
-    if (userStatus) {
-        const userId = userDetails.id; // Extract userId from session
-        let cart = await Cart.findOne({ user: userId }).populate('items.product');
-        
-        // Check if cart is empty or doesn't exist
-        if (!cart || cart.items.length === 0) {
-            return res.render('cart', { userDetails, cart: [] }); // Empty cart
-        } else {
-            return res.render('cart', { userDetails, cart: cart.items }); // Render cart with products
+// Route to show the cart
+router.get('/', async function(req, res) {
+    try {
+        const userDetails = req.session.user;
+        const userStatus = req.session.userlogin;
+
+        if (!userStatus) {
+            return res.redirect('/account'); // Redirect if not logged in
         }
-    } else {
-        res.redirect('/account'); // Redirect if not logged in
+
+        const userId = userDetails.id;
+        let cart = await Cart.findOne({ user: userId }).populate('items.product');
+
+        if (!cart || cart.items.length === 0) {
+            return res.render('cart', { userDetails, cart: [] }); // Render empty cart
+        }
+
+        const cartDisplay = cart.items.map(item => ({
+            product: item.product,
+            quantity: item.quantity,
+        }));
+
+        return res.render('cart', { userDetails, cart: cartDisplay });
+    } catch (err) {
+        console.error('Error fetching cart:', err);
+        res.status(500).send('Error fetching cart');
     }
 });
+
 
 // Add product to cart
 router.get('/add/:id', async (req, res) => {

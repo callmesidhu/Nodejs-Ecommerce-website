@@ -60,19 +60,20 @@
            {{#if cart.length}}
             {{#each cart}}
             <tr>
+        
                 <td>
                     <div class="cart-info">
-                        <img src="images/buy-2.jpg">
+                        <img src="/storage/{{this.product.id}}.jpg" alt="{{this.product.title}}">
                         <div>
-                            <p>Red Printed T-Shirt</p>
-                            <small>Price: $50.00</small>
+                            <p>{{this.product.title}}</p>
+                            <small>{{this.product.price}}</small>
                             <br>
                             <a href="">Remove</a>
                         </div>
                     </div>
                 </td>
                 <td><input type="number" value={{this.quantity}}></td>
-                <td>$50.00</td>
+                <td>$875</td>
             </tr>
             {{/each}}
             {{else}}
