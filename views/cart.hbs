@@ -68,12 +68,16 @@
                             <p>{{this.product.title}}</p>
                             <small>{{this.product.price}}</small>
                             <br>
-                            <a href="">Remove</a>
+                            <form action="/cart/remove/{{this.product.id}}" method="POST">
+                            <button type="submit" style="border: 0 ; background-color: transparent;">
+                                <a>Remove</a>
+                            </button>
+                            </form>
                         </div>
                     </div>
                 </td>
                 <td><input type="number" value={{this.quantity}}></td>
-                <td>$875</td>
+                <td>{{this.total}}</td>
             </tr>
             {{/each}}
             {{else}}
@@ -84,16 +88,8 @@
         <div class="total-price">
             <table>
                 <tr>
-                    <td>Subtotal</td>
-                    <td>$200.00</td>
-                </tr>
-                <tr>
-                    <td>Tax</td>
-                    <td>$35.00</td>
-                </tr>
-                <tr>
-                    <td>Total</td>
-                    <td>$230.00</td>
+                    <td>Total Amount</td>
+                    <td>{{this.totalAmount}}</td>
                 </tr>
             </table>
         </div>
