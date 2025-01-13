@@ -28,9 +28,9 @@
     
     <!-- Cart items details -->
     <div class="small-container cart-page">
-        <ul id="MenuItems" style="display: flex; margin: 12px;">
-            
-        </ul>
+        <ul id="MenuItems" style="display: flex; margin: 12px;"></ul>
+
+        <!-- Current Products Section -->
         <table>
             <tr>
                 <th>Current Products</th>
@@ -43,7 +43,7 @@
             <tr>
                 <td>
                     <div class="cart-info">
-                        <img style="width: 50px;height: 50px;" src="/storage/{{this._id}}.jpg" alt="">
+                        <img style="width: 50px; height: 50px;" src="/storage/{{this._id}}.jpg" alt="">
                         <div>
                             <h3>{{this.title}}</h3>
                             <small>{{this.description}}</small>
@@ -53,14 +53,19 @@
                     </div>
                 </td>
                 <td>
-                    <form action="/admin/delete/{{this._id}}" method="POST">
-                    <button onclick="return confirm('Are you want to delete {{this.title}}?')" type="submit" style="padding: 10px;"><h3>Delete</h3></button>
+                   <!--      <a href="/admin/edit">
+                        <button type="submit" style="padding: 10px;">Edit</button>
+                    </a>  -->
+
+                    <form action="/admin/delete/{{this._id}}" method="POST" style="display: inline;">
+                        <button onclick="return confirm('Are you sure you want to delete {{this.title}}?')" type="submit" style="padding: 10px;">Delete</button>
                     </form>
-                    </td>
+                </td>
             </tr>
             {{/each}}
-
         </table>
+
+        <!-- Add New Product Section -->
         <table>
             <tr>
                 <th>Add Product</th>
@@ -68,24 +73,20 @@
                 <th></th>
                 <th></th>
             </tr>
-            <tr>
-
-            </tr>
         </table>
 
-        <!-- Add new product form -->
+        <!-- Add New Product Form -->
         <div class="add-product-form">
-
-            <form action="admin/add" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 10px;">
+            <form action="/admin/add" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 10px;">
                 <div>
                     <label for="title">Product Title:</label>
                     <input type="text" id="title" name="title" required>
                 </div>
                 <div>
-                    <label for="image">Product Image</label>
+                    <label for="image">Product Image:</label>
                     <input type="file" id="image" name="image" required>
                 </div>
-                <div style="align-items: center; display: flex;">
+                <div>
                     <label for="description">Product Description:</label>
                     <textarea id="description" name="description" required></textarea>
                 </div>
@@ -94,21 +95,21 @@
                     <input type="number" id="price" name="price" required>
                 </div>
                 <div>
-                    <button type="submit" style="padding: 10px;"><h3>Add Product</h3></button>
+                    <button type="submit" style="padding: 10px;">Add Product</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- javascript -->
+    <!-- JavaScript -->
     <script>
         var MenuItems = document.getElementById("MenuItems");
         MenuItems.style.maxHeight = "0px";
         function menutoggle() {
             if (MenuItems.style.maxHeight == "0px") {
-                MenuItems.style.maxHeight = "200px"
+                MenuItems.style.maxHeight = "200px";
             } else {
-                MenuItems.style.maxHeight = "0px"
+                MenuItems.style.maxHeight = "0px";
             }
         }
     </script>
