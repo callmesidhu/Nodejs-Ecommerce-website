@@ -8,7 +8,8 @@ router.get('/', (req, res) => {
     if (req.session.userlogin) {
         return res.redirect('/');
     }
-    const warningMessage = req.query.message || null;
+    const warningMessage = req.session.warning;
+    req.session.warning = null; // Clear warning message after reading
     res.render('account', { warningMessage });
 });
 
@@ -17,13 +18,15 @@ router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
-        return res.render( { warningMessage: 'All fields are required!' });
+        req.session.warning = 'All fields are required!';
+        return res.redirect('/account'); // Redirect to account page
     }
 
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.render({ warningMessage: 'User already exists' });
+            req.session.warning = 'User already exists!';
+            return res.redirect('/account');
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -32,10 +35,12 @@ router.post('/register', async (req, res) => {
         const newUser = new User({ username, email, password: hashedPassword });
         await newUser.save();
 
-        res.render({ warningMessage: 'Registration successful! Please log in' });
+        req.session.warning = 'Registration successful! Please log in.';
+        res.redirect('/account');
     } catch (error) {
         console.error(error);
-        res.render( { warningMessage: 'Registration error!' });
+        req.session.warning = 'Registration error!';
+        res.redirect('/account');
     }
 });
 
@@ -44,18 +49,21 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.render({ warningMessage: 'Email and password are required!' });
+        req.session.warning = 'Email and password are required!';
+        return res.redirect('/account');
     }
 
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.render( { warningMessage: 'No user found' });
+            req.session.warning = 'No user found!';
+            return res.redirect('/account');
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.render( { warningMessage: 'Invalid credentials' });
+            req.session.warning = 'Invalid credentials!';
+            return res.redirect('/account');
         }
 
         req.session.userlogin = true;
@@ -63,14 +71,20 @@ router.post('/login', async (req, res) => {
         res.redirect('/');
     } catch (error) {
         console.error(error);
-        res.render({ warningMessage: 'Login error!' });
+        req.session.warning = 'Login error!';
+        res.redirect('/account');
     }
 });
 
 // Logout route
 router.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.redirect('/');
+        }
+        res.redirect('/account');
+    });
 });
 
 module.exports = router;
