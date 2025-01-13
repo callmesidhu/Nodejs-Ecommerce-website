@@ -77,8 +77,8 @@ router.get('/add/:id', async (req, res) => {
     try {
         // Save the cart
         await cart.save();
-        // Redirect to the cart page with success message
-        res.redirect('/cart?added=true');
+        // Redirect to the cart page 
+        res.redirect('/cart');
     } catch (err) {
         console.error('Error saving cart:', err);
         res.status(500).send('Error saving cart');
