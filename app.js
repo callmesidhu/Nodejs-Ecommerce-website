@@ -34,7 +34,12 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use(session({ secret:'key', cookie: { maxAge: 6000000 }}));
+app.use(session({
+  secret: 'your-secret-key', // Use a secret key for session encryption
+  resave: false,              // Prevents session from being saved without changes
+  saveUninitialized: true,    // Saves uninitialized sessions
+  cookie: { secure: false }   // In production, use 'secure: true' and HTTPS
+}));
 
 // Routes
 app.use('/', homeRouter);

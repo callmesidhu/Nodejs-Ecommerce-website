@@ -57,21 +57,8 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/buy-1.jpg">
-                        <div>
-                            <p>Red Printed T-Shirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50.00</td>
-            </tr>
+           {{#if cart.length}}
+            {{#each cart}}
             <tr>
                 <td>
                     <div class="cart-info">
@@ -87,21 +74,11 @@
                 <td><input type="number" value="1"></td>
                 <td>$50.00</td>
             </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/buy-3.jpg">
-                        <div>
-                            <p>Red Printed T-Shirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50.00</td>
-            </tr>
+            {{/each}}
+            {{else}}
+            <p>Your cart is empty.</p>
+        {{/if}}
+            
         </table>
         <div class="total-price">
             <table>
