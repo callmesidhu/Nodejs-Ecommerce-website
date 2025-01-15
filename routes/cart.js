@@ -85,6 +85,7 @@ router.get('/add/:id', async (req, res) => {
     }
 });
 
+//remove cart products
 router.post('/remove/:id', async (req, res) => {
     try {
         const userDetails = req.session.user;
@@ -115,6 +116,13 @@ router.post('/remove/:id', async (req, res) => {
         console.error('Error removing product from cart:', error);
         res.status(500).send('Internal Server Error');
     }
+});
+
+
+//update cart qunatity update
+router.post('/quantity', async (req, res) => {
+    const { productId, quantity } = req.body;
+    console.log(req.body);
 });
 
 module.exports = router;

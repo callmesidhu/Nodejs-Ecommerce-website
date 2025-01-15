@@ -76,7 +76,14 @@
                         </div>
                     </div>
                 </td>
-                <td><input type="number" value={{this.quantity}}></td>
+<td>
+    <input
+        type="number"
+        value="{{this.quantity}}"
+        onchange="updateQuantity(this.value, '{{this.product.id}}')"
+    />
+</td>
+
                 <td>{{this.total}}</td>
             </tr>
             {{/each}}
@@ -139,6 +146,26 @@
     <!-- javascript -->
 
     <script>
+          async function updateQuantity(newQuantity, id) {
+    try {
+      const response = await fetch('/cart/quantity', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, quantity: newQuantity }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        alert('Quantity updated successfully!');
+      } else {
+        alert('Failed to update quantity.');
+      }
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+    }
+  }
+
         var MenuItems = document.getElementById("MenuItems");
         MenuItems.style.maxHeight = "0px";
         function menutoggle() {
