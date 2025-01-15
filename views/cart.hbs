@@ -157,9 +157,11 @@
       });
       const result = await response.json();
       if (result.success) {
-        alert('Quantity updated successfully!');
+        console.log('Quantity updated successfully!');
+        window.location.reload();
       } else {
-        alert('Failed to update quantity.');
+        console.log('Failed to update quantity.');
+        window.location.reload();
       }
     } catch (error) {
       console.error('Error updating quantity:', error);

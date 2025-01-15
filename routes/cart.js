@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Product = require('../models/Product');
 const Cart = require('../models/Cart');
-const User = require('../models/User');
+
 
 
 // Route to show the cart
@@ -119,10 +119,46 @@ router.post('/remove/:id', async (req, res) => {
 });
 
 
-//update cart qunatity update
 router.post('/quantity', async (req, res) => {
-    const { productId, quantity } = req.body;
-    console.log(req.body);
+    // Extract productId and quantity from request body
+    const { id: productId, quantity } = req.body;
+
+    // Assuming you have user details stored in the session
+    const userDetails = req.session.user;
+    
+    // Extract user ID from the session user details
+    const userId = userDetails ? userDetails.id : null;
+    console.log(userId, productId, quantity);
+    try {
+        // Find the user's cart document (Assuming it's stored in a "carts" collection)
+        const cart = await Cart.findOne({ user: userId });
+
+        // If no cart found, return a response
+        if (!cart) {
+            return res.status(404).json({ message: 'Cart not found' });
+        }
+
+        // Find the product in the cart's items array
+        const itemIndex = cart.items.findIndex(item => item.product.toString() === productId);
+
+        if (itemIndex > -1) {
+            // If product found, update its quantity
+            cart.items[itemIndex].quantity = quantity;
+            await cart.save();  // Save the updated cart
+            return res.status(200).json({ message: 'Cart updated successfully', cart });
+        } else {
+            // If product not found, respond with an error
+            return res.status(404).json({ message: 'Product not found in cart' });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
+
+
+
+
 
 module.exports = router;
