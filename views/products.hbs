@@ -65,11 +65,22 @@
         <div class="row">
             {{#each products}}
             <div class="col-4">
-                <a href="/productDetails"><img src="{{this.image}}"></a>
-                <h4>{{this.name}}</h4>
-                <h3>{{this.price}}</h3>
-                <p>{{this.description}}</p>
-            </div>
+    <a href="/product/detail">
+        <img src="/storage/{{this._id}}.jpg" alt="{{this.title}}">
+    </a>
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <div>
+            <h3>{{this.title}}</h3>
+            <h5>{{this.description}}</h5>
+            <p style="color: red;">${{this.price}}</p>
+        </div>
+        <div>
+            <a href="/cart/add/{{this._id}}">
+                <button type="submit" class="btn" style="margin: 1px; border: 0;">Cart</button>
+            </a>
+        </div>
+    </div>
+</div>
             {{/each}}
         </div>
         <div class="page-btn">
