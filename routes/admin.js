@@ -2,16 +2,34 @@ var express = require('express');
 var router = express.Router();
 const path = require('path');
 const fs = require('fs');
-const Product = require('../models/Product'); // Ensure this points to your Product model
+const Product = require('../models/Product'); 
+const User = require('../models/User')
 
-const admin = true; // You should replace this with actual authentication logic
+// Middleware to check if the user is an admin
+const isAdmin = async (req, res, next) => {
+  try {
+    const userDetails = req.session.user;
+    const userId = userDetails.id;
+    if (!userId) {
+      return res.status(401).send('Unauthorized. Please log in.');
+    }
 
+    // Fetch the user from the database
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send('User not found.');
+    }
 
-const isAdmin = (req, res, next) => {
-  if (admin) { 
-    return next(); 
+    // Check if the user has admin privileges
+    if (user.admin === true) {
+      return next(); // Allow access
+    }
+
+    res.status(403).send('Access denied. Admin only.');
+  } catch (error) {
+    console.error('Error in isAdmin middleware:', error);
+    res.status(500).send('Internal Server Error');
   }
-  res.status(403).send('Access denied. Admin only.'); 
 };
 
 router.get('/', isAdmin, async (req, res) => {
